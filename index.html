@@ -233,7 +233,7 @@
   <div class="overlay-description">Nhảy né chướng ngại — 1 mạng thôi!</div>
   <div class="reward-input-group">
     <label>Mốc tuyên dương:</label>
-    <input id="rewardInput" type="number" value="12" min="1">
+    <input id="rewardInput" type="number" value="10" min="1">
   </div>
   <button id="startBtn">BẮT ĐẦU</button>
   <div class="meta">Phím Space hoặc chạm để nhảy • Điểm tăng khi né được chướng ngại</div>
@@ -260,35 +260,6 @@ const jumpBtn = document.getElementById('jumpBtn');
 let W = canvas.width, H = canvas.height;
 ctx.imageSmoothingEnabled = true;
 
-// === BẮT ĐẦU ĐOẠN MÃ MỚI CẦN THÊM ===
-// Hàm này sẽ điều chỉnh canvas để hiển thị sắc nét trên màn hình Retina
-function setupCanvas() {
-    // Lấy kích thước hiển thị thực tế (CSS pixels) của canvas
-    const canvasCSSWidth = canvas.offsetWidth;
-    const canvasCSSHeight = canvas.offsetHeight;
-
-    // Lấy devicePixelRatio của thiết bị (ví dụ: 2 cho Retina, 3 cho Super Retina)
-    const dpr = window.devicePixelRatio || 1;
-
-    // Đặt kích thước nội tại (physical pixels) của canvas
-    // Canvas sẽ có nhiều pixel vật lý hơn trên màn hình Retina
-    canvas.width = canvasCSSWidth * dpr;
-    canvas.height = canvasCSSHeight * dpr;
-
-    // Scale ngữ cảnh vẽ (rendering context) ngược lại.
-    // Điều này đảm bảo mọi thứ bạn vẽ (ví dụ: một hình chữ nhật 10x10)
-    // sẽ có kích thước logic 10x10 CSS pixels, nhưng được vẽ bằng 10*dpr x 10*dpr physical pixels.
-    ctx.scale(dpr, dpr);
-
-    // Cập nhật các biến toàn cục W và H để chúng phản ánh kích thước logic (CSS) của canvas
-    // Các logic game khác sẽ sử dụng W và H này.
-    W = canvasCSSWidth;
-    H = canvasCSSHeight;
-
-    // Cập nhật vị trí ban đầu của player sau khi W và H được thiết lập đúng
-    // Điều này cần thiết để player được đặt đúng vị trí ngay cả khi kích thước canvas thay đổi.
-    player.y = H - 16 - player.h;
-}
 // Game variables
 let running = false, frames = 0, score = 0, best = 0, rewardTarget = 10;
 let obstacles = [], spawnInterval = 90, obstacleSpeed = 3, gravity = 0.6;
@@ -538,5 +509,3 @@ scoreDisplay.textContent = '0';
 </script>
 </body>
 </html>
-
-
